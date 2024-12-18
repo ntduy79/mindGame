@@ -12,7 +12,7 @@ public class GuessNumber {
 
         System.out.println("Choose your difficulty level:");
         while (true) {
-            System.out.println("\nCommands: easy, medium, hard");
+            System.out.println("\nCommands: easy, medium, hard, customize");
             System.out.print("> ");
             String command = scanner.next().toLowerCase(Locale.ROOT);
 
@@ -20,13 +20,19 @@ public class GuessNumber {
                 case "easy" -> playGame(scanner, random, 10, "Easy");
                 case "medium" -> playGame(scanner, random, 7, "Medium");
                 case "hard" -> playGame(scanner, random, 5, "Hard");
+                case "customize" -> playGame(scanner, random,1000000000, "Customize");
                 default -> System.out.println("Invalid command. Please choose easy, medium, or hard.");
             }
         }
     }
 
     private void playGame(Scanner scanner, Random random, int attempts, String difficulty) {
-        System.out.println("You have " + attempts + " chances. Good luck! [" + difficulty + " Mode]");
+        if(difficulty.equalsIgnoreCase("customize")) {
+            System.out.println("Welcome to mode " + difficulty + " you can play infinite time");
+        }
+        else {
+            System.out.println("You have " + attempts + " chances. Good luck! [" + difficulty + " Mode]");
+        }
         int targetNumber = random.nextInt(1, 101); // Random number between 1 and 100
 
         for (int i = 0; i < attempts; i++) {
