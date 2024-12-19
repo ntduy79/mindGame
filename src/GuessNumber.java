@@ -1,6 +1,6 @@
-import java.util.Locale;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 
 public class GuessNumber {
     public void startGame() {
@@ -25,8 +25,8 @@ public class GuessNumber {
             }
         }
     }
-
     private void playGame(Scanner scanner, Random random, int attempts, String difficulty) {
+        long start = System.nanoTime();
         if(difficulty.equalsIgnoreCase("customize")) {
             System.out.println("Welcome to mode " + difficulty + " you can play infinite time");
         }
@@ -41,6 +41,9 @@ public class GuessNumber {
 
             if (userGuess == targetNumber) {
                 System.out.println("Congratulations! You guessed it! The number was " + targetNumber);
+                long stop = System.currentTimeMillis();
+                long totalTimer = stop - start;
+                timerConvert(totalTimer);
                 return;
             } else if (userGuess < targetNumber) {
                 System.out.println("Too low!");
@@ -52,5 +55,21 @@ public class GuessNumber {
                 System.out.println("Out of attempts! The correct number was " + targetNumber);
             }
         }
+    }
+    public void timerConvert(long timer) {
+        // This method uses this formula :minutes =
+        // (milliseconds / 1000) / 60;
+
+        long minutes
+                = TimeUnit.MILLISECONDS.toMinutes(timer);
+
+        // This method uses this formula seconds =
+        // (milliseconds / 1000);
+        long seconds
+                = (TimeUnit.MILLISECONDS.toSeconds(timer)
+                % 60);
+
+        // Print the answer
+        System.out.format(minutes + " minutes and " + seconds + " seconds");
     }
 }
